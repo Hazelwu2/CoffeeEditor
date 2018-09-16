@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Coffee Editor | Vue.js</title>
+    <link rel="stylesheet" href="style.css"/>
+  </head>
+  <body>
+    <div id="app">
+      <label class="hiddenControl">Editing:
+        <input v-model="editing" type="checkbox"/>
+        <select v-model="favoriteType">
+          <option v-for="coffee in coffees" :value="coffee.name">{{coffee.name}}</option>
+        </select>
+      </label>
+      <h3>Vue.js Coffee Editor</h3>
+      <div class="coffeeType" v-for="(coffee, cid) in coffees" :class="{favorite: coffee.name == favoriteType, showMode: !editing}">
+        <div class="num">0{{cid}}</div>
+        <div class="cupContainer">
+          <div class="cup" :class="[coffee.type]">
+            <div class="ingradients">
+              <div class="coffee" :style="{height: coffee.coffee + &quot;%&quot; }"></div>
+              <div class="milk" :style="{height: coffee.milk + &quot;%&quot;}"></div>
+              <div class="water" :style="{height: coffee.water + &quot;%&quot;}"></div>
+              <div class="bubble" :style="{height: coffee.bubble + &quot;%&quot;}"></div>
+            </div>
+          </div>
+        </div>
+        <div class="control">
+          <h2>{{coffee.name}}</h2>
+          <select v-model="coffee.type">
+            <option v-for="cupType in cupTypes" :value="cupType">{{cupType}}</option>
+          </select>
+          <div v-for="type in [&quot;coffee&quot;, &quot;milk&quot;, &quot;bubble&quot;, &quot;water&quot;]">
+            <label>{{type}}</label>
+            <input type="range" v-model="coffee[type]" min="0" max="100"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
